@@ -16,5 +16,4 @@ int is_empty(Stack* stack);
 int is_full(Stack* stack);
 void push(Stack* stack, int item);
 int pop(Stack* stack);
-
 #endif // STACK_H
