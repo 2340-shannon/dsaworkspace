@@ -102,8 +102,61 @@ void infixToPostfix(char infix[], char postfix[]) {
 }
 
 
-//postfix evaluation
+// Function to evaluate a postfix expression
+int evaluatePostfix(char postfix[]) {
+    struct Stack stack;
+    initialize(&stack);
 
+    int i = 0;
+    while (postfix[i] != '\0') {
+        if (isspace(postfix[i])) {
+            // Skip spaces
+            i++;
+            continue;
+        }
+
+        if (isdigit(postfix[i])) {
+            // Parse multi-digit numbers and push them onto the stack
+            int num = 0;
+            while (isdigit(postfix[i])) {
+                num = num * 10 + (postfix[i] - '0');
+                i++;
+            }
+            push(&stack, num);
+        } else if (postfix[i] == '+' || postfix[i] == '-' || postfix[i] == '*' || postfix[i] == '/') {
+            // If it's an operator, pop the top two operands from the stack
+            int operand2 = pop(&stack);
+            int operand1 = pop(&stack);
+
+            // Perform the operation and push the result back onto the stack
+            switch (postfix[i]) {
+                case '+':
+                    push(&stack, operand1 + operand2);
+                    break;
+                case '-':
+                    push(&stack, operand1 - operand2);
+                    break;
+                case '*':
+                    push(&stack, operand1 * operand2);
+                    break;
+                case '/':
+                    if (operand2 == 0) {
+                        printf("Division by zero\n");
+                        exit(1);
+                    }
+                    push(&stack, operand1 / operand2);
+                    break;
+            }
+            i++;
+        } else {
+            printf("Invalid character in expression: %c\n", postfix[i]);
+            exit(1);
+        }
+    }
+
+    // The final result is at the top of the stack
+    return pop(&stack);
+}
 
 int main() {
     char infix[100];
