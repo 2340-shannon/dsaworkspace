@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <ctype.h>
 
 #define MAX_STACK_SIZE 100
 
-// Define a stack structure for characters
+// Define a stack structure for integers
 struct Stack {
-    char items[MAX_STACK_SIZE];
+    int items[MAX_STACK_SIZE];
     int top;
 };
 
@@ -22,7 +21,7 @@ int isEmpty(struct Stack *stack) {
 }
 
 // Function to push an item onto the stack
-void push(struct Stack *stack, char item) {
+void push(struct Stack *stack, int item) {
     if (stack->top == MAX_STACK_SIZE - 1) {
         printf("Stack Overflow\n");
         exit(1);
@@ -31,7 +30,7 @@ void push(struct Stack *stack, char item) {
 }
 
 // Function to pop an item from the stack
-char pop(struct Stack *stack) {
+int pop(struct Stack *stack) {
     if (isEmpty(stack)) {
         printf("Stack Underflow\n");
         exit(1);
@@ -56,7 +55,6 @@ int precedence(char operator) {
     return 0;
 }
 
-// Function to convert infix expression to postfix
 void infixToPostfix(char infix[], char postfix[]) {
     struct Stack stack;
     initialize(&stack);
@@ -69,11 +67,11 @@ void infixToPostfix(char infix[], char postfix[]) {
 
         if (isdigit(token)) {
             // If it's a digit, add it to the output
-            postfix[j++] = token;
-            while (isdigit(infix[i+1])) {
-                postfix[j++] = infix[++i];
+            while (isdigit(infix[i])) {
+                postfix[j++] = infix[i++];
             }
             postfix[j++] = ' '; // Add a space to separate operands
+            i--; // Decrement i to account for the extra increment in the while loop
         } else if (token == '(') {
             // If it's an open parenthesis, push it onto the stack
             push(&stack, token);
@@ -103,16 +101,24 @@ void infixToPostfix(char infix[], char postfix[]) {
     postfix[j] = '\0'; // Null-terminate the postfix expression
 }
 
+
+//postfix evaluation
+
+
 int main() {
     char infix[100];
     char postfix[100];
+    int result;
 
     printf("Enter the infix expression: ");
     scanf("%s", infix);
 
     infixToPostfix(infix, postfix);
+    result = evaluatePostfix(postfix);
 
     printf("Postfix expression: %s\n", postfix);
+    printf("Result: %d\n", result);
 
     return 0;
 }
+
