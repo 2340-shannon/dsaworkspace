@@ -2,8 +2,10 @@
 #include "stack.h"
 #include "bracketmatching.h"
 #include "BTree.h"
-#include "infix_postfix.h"
-#include
+#include "infixpostfixevaluation.h"
+#include "merge_sort.h"
+#include "quicksort.h"
+#include "shortest_path.h"
 
 // Main program
 int main() {
@@ -253,12 +255,43 @@ int main() {
                 break;
 
             case 7:
+                 int N;
 
-            }
+                // Prompt the user to enter the number of elements
+                printf("Enter the number of elements: ");
+                scanf("%d", &N);
+
+                int* arr = (int*)malloc(N * sizeof(int));
+
+                // Check if memory allocation was successful
+                if (arr == NULL) {
+                    printf("Memory allocation failed. Exiting...\n");
+                    return 1;
+                }
+
+                // Prompt the user to enter the elements
+                printf("Enter the elements one by one: ");
+                for (int i = 0; i < N; i++) {
+                    scanf("%d", &arr[i]);
+                }
+
+                // Function call
+                quickSort(arr, 0, N - 1);
+
+                printf("Sorted array: \n");
+                for (int i = 0; i < N; i++)
+                    printf("%d ", arr[i]);
+
+                // Free the dynamically allocated memory
+                free(arr);
+
+                break;
 
             default:
             printf("Exiting the program");
             exit(0);
+            }
+
         }
 
         }

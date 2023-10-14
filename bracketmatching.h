@@ -15,12 +15,12 @@ struct sNode {
 void push(struct sNode** top_ref, int new_data);
 
 // Function to pop an item from the stack
-
+int pop(struct sNode** top_ref);
 
 // Returns 1 if character1 and character2 are matching left and right brackets
 bool isMatchingPair(char character1, char character2);
 
 // Return 1 if expression has balanced brackets
-
+bool areBracketsBalanced(char exp[]);
 
 #endif

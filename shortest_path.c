@@ -1,6 +1,8 @@
 // Dijkstra's Algorithm in C
 
 #include <stdio.h>
+#include "shortest_path.h"
+
 #define INFINITY 9999
 #define MAX 10
 

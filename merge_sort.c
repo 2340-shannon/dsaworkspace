@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "merge_sort.h"
 
 // Merge two subarrays of arr[].
 // First subarray is arr[l..m]
@@ -68,31 +69,3 @@ void mergeSort(int arr[], int l, int r) {
     }
 }
 
-int main() {
-    int arr_size;
-    printf("Enter the size of the array: ");
-    scanf("%d", &arr_size);
-
-    int arr[arr_size];
-
-    printf("Enter the elements of the array, one by one:\n");
-    for (int i = 0; i < arr_size; i++) {
-        printf("element %d :",i+1);
-        scanf("%d", &arr[i]);
-        getchar(); // or use fflush(stdin);
-    }
-
-    printf("Initial array:\n");
-    for (int i = 0; i < arr_size; i++)
-        printf("%d ", arr[i]);
-    printf("\n");
-
-    mergeSort(arr, 0, arr_size - 1);
-
-    printf("\nSorted array:\n");
-    for (int i = 0; i < arr_size; i++)
-        printf("%d ", arr[i]);
-    printf("\n");
-
-    return 0;
-}

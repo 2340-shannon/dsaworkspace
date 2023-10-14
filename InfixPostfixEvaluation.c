@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include "InfixPostfixEvaluation.h"
 
 #define MAX_STACK_SIZE 100
 
@@ -158,20 +159,4 @@ int evaluatePostfix(char postfix[]) {
     return pop(&stack);
 }
 
-int main() {
-    char infix[100];
-    char postfix[100];
-    int result;
-
-    printf("Enter the infix expression: ");
-    scanf("%s", infix);
-
-    infixToPostfix(infix, postfix);
-    result = evaluatePostfix(postfix);
-
-    printf("Postfix expression: %s\n", postfix);
-    printf("Result: %d\n", result);
-
-    return 0;
-}
 
