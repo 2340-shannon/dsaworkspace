@@ -25,7 +25,51 @@ bool isMatchingPair(char character1, char character2)
 }
 
 // Return 1 if expression has balanced Brackets
-//areBracketsBalanced
+bool areBracketsBalanced(char exp[])
+{
+	int i = 0;
+
+	// Declare an empty character stack
+	struct sNode* stack = NULL;
+
+	// Traverse the given expression to check matching
+	// brackets
+	while (exp[i]) 
+	{
+		// If the exp[i] is a starting bracket then push
+		// it
+		if (exp[i] == '{' || exp[i] == '(' || exp[i] == '[')
+			push(&stack, exp[i]);
+
+		// If exp[i] is an ending bracket then pop from
+		// stack and check if the popped bracket is a
+		// matching pair*/
+		if (exp[i] == '}' || exp[i] == ')'
+			|| exp[i] == ']') {
+
+			// If we see an ending bracket without a pair
+			// then return false
+			if (stack == NULL)
+				return 0;
+
+			// Pop the top element from stack, if it is not
+			// a pair bracket of character then there is a
+			// mismatch.
+			// his happens for expressions like {(})
+			else if (!isMatchingPair(pop(&stack), exp[i]))
+				return 0;
+		}
+		i++;
+	}
+
+	// If there is something left in expression then there
+	// is a starting bracket without a closing
+	// bracket
+	if (stack == NULL)
+		return 1; // balanced
+	else
+		return 0; // not balanced
+}
 
 int main()
 {
@@ -35,8 +79,13 @@ int main()
     scanf("%s", exp);
 
     
-    //if statement
+    // Function call
+    if (areBracketsBalanced(exp))
+        printf("Balanced\n");
+    else
+        printf("Not Balanced\n");
 
+    return 0;
 
 }
 
@@ -66,3 +115,22 @@ void push(struct sNode** top_ref, int new_data)
 
 
 // Function to pop an item from stack
+int pop(struct sNode** top_ref)
+{
+	char res;
+	struct sNode* top;
+
+	// If stack is empty then error
+	if (*top_ref == NULL) {
+		printf("Stack overflow n");
+		getchar();
+		exit(0);
+	}
+	else {
+		top = *top_ref;
+		res = top->data;
+		*top_ref = top->next;
+		free(top);
+		return res;
+	}
+}

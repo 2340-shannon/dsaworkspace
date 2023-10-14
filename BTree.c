@@ -26,10 +26,40 @@ void insert(node **tree, int val) {
 
 
 //node *find_min
-
+node *find_min(node *tree) {
+    while (tree->left != NULL) {
+        tree = tree->left;
+    }
+    return tree;
+}
 
 //void node*deletenode
+node *deleteNode(node *tree, int val) {
+    if (tree == NULL) {
+        return tree;
+    }
 
+    if (val < tree->data) {
+        tree->left = deleteNode(tree->left, val);
+    } else if (val > tree->data) {
+        tree->right = deleteNode(tree->right, val);
+    } else {
+        if (tree->left == NULL) {
+            node *temp = tree->right;
+            free(tree);
+            return temp;
+        } else if (tree->right == NULL) {
+            node *temp = tree->left;
+            free(tree);
+            return temp;
+        }
+
+        node *temp = find_min(tree->right);
+        tree->data = temp->data;
+        tree->right = deleteNode(tree->right, temp->data);
+    }
+    return tree;
+}
 
 void print_preorder(node *tree) {
     if (tree) {
@@ -99,8 +129,20 @@ int main() {
                 scanf("%d", &val);
                 insert(&root, val);
                 break;
-        
-            
+            case 2:
+                printf("Enter the value to delete: ");
+                scanf("%d", &val);
+                root = deleteNode(root, val);
+                break;
+            case 3:
+                printf("Enter the value to search: ");
+                scanf("%d", &val);
+                node *result = search(root, val);
+                if (result) {
+                    printf("node found =%d\n", result->data);
+                } else {
+                    printf("Data not found in the tree.\n");
+                }
             case 4:
                 printf("Pre Order Display\n");
                 print_preorder(root);
