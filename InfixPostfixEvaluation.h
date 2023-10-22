@@ -1,5 +1,6 @@
 #ifndef INFIXPOSTFIXEVALUATION_H
 #define INFIXPOSTFIXEVALUATION_H
+#define MAX_STACK_SIZE 100
 
 // Define a stack structure for integers
 struct Stack {
@@ -12,7 +13,7 @@ void initialize(struct Stack *stack);
 int isEmpty(struct Stack *stack);
 void push(struct Stack *stack, int item);
 int pop(struct Stack *stack);
-int peek(struct Stack *stack);
+char peek(struct Stack *stack);
 int precedence(char operator);
 void infixToPostfix(char infix[], char postfix[]);
 int evaluatePostfix(char postfix[]);

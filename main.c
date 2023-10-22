@@ -6,13 +6,33 @@
 #include "merge_sort.h"
 #include "quicksort.h"
 #include "shortest_path.h"
+#define MAX 10
+#define MAX_STACK_SIZE 100 
+
 
 // Main program
 int main() {
-    int main()
-{
     int option;
+    char infix[100];
+    char postfix[100];
+    char exp[100];
+    int result;
+
     int size;
+    Stack myStack;
+    init(&myStack);
+    int choice, item;
+
+    int arr_size;
+   
+    int N; 
+   
+    node *root = NULL;
+    int val;
+
+    int Graph[MAX][MAX], i, j, n, u;
+    n = 7;
+    
     while (1)
     {
         printf("Enter:\n1)Stack \n2)Infixpostfix evaluation \n3)Bracket Matching \n4)Binary Tree \n5)Shortest distance \n6) Merge Sort \n7)Qiuck Sort");
@@ -20,10 +40,7 @@ int main() {
         switch (option)
         {
             case 1:
-                Stack myStack;
-                init(&myStack);
-                int choice, item;
-
+                
                 while (1) {
 
                 printf("\nMenu:\n");
@@ -39,7 +56,7 @@ int main() {
                         if (!is_full(&myStack)) {
                             printf("Enter an item to push: ");
                             scanf("%d", &item);
-                            push(&myStack, item);
+                            push(&myStack,item);
                             printf("%d pushed onto the stack.\n", item);
                         } else {
                             printf("Stack is full. Cannot push.\n");
@@ -70,13 +87,11 @@ int main() {
                     default:
                         printf("Invalid choice. Please try again.\n");
                 }
+            break;
             }
 
             case 2:
-                 char infix[100];
-                 char postfix[100];
-                int result;
-
+                
                 printf("Enter the infix expression: ");
                 scanf("%s", infix);
                 infixToPostfix(infix, postfix);
@@ -89,7 +104,7 @@ int main() {
     
 
             case 3:
-                 char exp[100];
+                 
                 printf("Enter an expression: ");
                 scanf("%s", exp);
 
@@ -103,9 +118,6 @@ int main() {
 
 
             case 4:
-                node *root = NULL;
-                int choice;
-                int val;
 
                 while (1) {
                     printf("1. Insert a value\n");
@@ -161,8 +173,6 @@ int main() {
                 break;
 
             case 5:
-                int Graph[MAX][MAX], i, j, n, u;
-                n = 7;
 
                 Graph[0][0] = 0;
                 Graph[0][1] = 0;
@@ -227,15 +237,20 @@ int main() {
 
 
             case 6:
-                int arr_size;
+                
                 printf("Enter the size of the array: ");
                 scanf("%d", &arr_size);
 
-                int arr[arr_size];
+                int *arr = (int*)malloc(arr_size * sizeof(int));
+                
+                if (arr == NULL) {
+                    printf("Memory allocation failed. Exiting...\n");
+                    exit(1);
+                }
 
                 printf("Enter the elements of the array, one by one:\n");
                 for (int i = 0; i < arr_size; i++) {
-                    printf("element %d :",i+1);
+                    printf("element %d: ", i + 1);
                     scanf("%d", &arr[i]);
                     getchar(); // or use fflush(stdin);
                 }
@@ -252,41 +267,30 @@ int main() {
                     printf("%d ", arr[i]);
                 printf("\n");
 
+                free(arr); // Don't forget to free the allocated memory when you're done.
+
                 break;
+
 
             case 7:
-                 int N;
+            {
+            int numberOfElements;
+            printf("Enter the number of elemets you want to sort:\n");
+            scanf("%d", &numberOfElements);
 
-                // Prompt the user to enter the number of elements
-                printf("Enter the number of elements: ");
-                scanf("%d", &N);
+            int arr1[numberOfElements];
+            printf("Enter the elements:\n");
+            for (int i = 0; i < numberOfElements; i++)
+            {
+                scanf("%d", &arr1[i]);
+            }
 
-                int* arr = (int*)malloc(N * sizeof(int));
-
-                // Check if memory allocation was successful
-                if (arr == NULL) {
-                    printf("Memory allocation failed. Exiting...\n");
-                    return 1;
-                }
-
-                // Prompt the user to enter the elements
-                printf("Enter the elements one by one: ");
-                for (int i = 0; i < N; i++) {
-                    scanf("%d", &arr[i]);
-                }
-
-                // Function call
-                quickSort(arr, 0, N - 1);
-
-                printf("Sorted array: \n");
-                for (int i = 0; i < N; i++)
-                    printf("%d ", arr[i]);
-
-                // Free the dynamically allocated memory
-                free(arr);
-
-                break;
-
+            quickSort(arr, 0, numberOfElements - 1);
+            printf("Sorted array: \n");
+            for (int i = 0; i < numberOfElements; i++)
+             printf("%d ", arr1[i]);
+            break;
+        }
             default:
             printf("Exiting the program");
             exit(0);
@@ -294,7 +298,7 @@ int main() {
 
         }
 
-        }
+        
 
 return 0;
 }

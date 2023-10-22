@@ -2,11 +2,6 @@
 #include <stdio.h>
 #include "BTree.h"
 
-struct bin_tree {
-    int data;
-    struct bin_tree *left, *right;
-};
-typedef struct bin_tree node;
 
 void insert(node **tree, int val) {
     node *temp = NULL;

@@ -3,13 +3,6 @@
 #include <ctype.h>
 #include "InfixPostfixEvaluation.h"
 
-#define MAX_STACK_SIZE 100
-
-// Define a stack structure for integers
-struct Stack {
-    int items[MAX_STACK_SIZE];
-    int top;
-};
 
 // Function to initialize the stack
 void initialize(struct Stack *stack) {

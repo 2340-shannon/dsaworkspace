@@ -3,16 +3,6 @@
 #include"bracketmatching.h"
 #define bool int
 
-
-struct sNode {
-	char data;
-	struct sNode* next;
-};
-
-void push(struct sNode** top_ref, int new_data);
-
-int pop(struct sNode** top_ref);
-
 bool isMatchingPair(char character1, char character2)
 {
 	if (character1 == '(' && character2 == ')')
@@ -40,7 +30,7 @@ bool areBracketsBalanced(char exp[])
 		// If the exp[i] is a starting bracket then push
 		// it
 		if (exp[i] == '{' || exp[i] == '(' || exp[i] == '[')
-			push(&stack, exp[i]);
+			pushin(&stack, exp[i]);
 
 		// If exp[i] is an ending bracket then pop from
 		// stack and check if the popped bracket is a
@@ -57,7 +47,7 @@ bool areBracketsBalanced(char exp[])
 			// a pair bracket of character then there is a
 			// mismatch.
 			// his happens for expressions like {(})
-			else if (!isMatchingPair(pop(&stack), exp[i]))
+			else if (!isMatchingPair(popout(&stack), exp[i]))
 				return 0;
 		}
 		i++;
@@ -74,7 +64,7 @@ bool areBracketsBalanced(char exp[])
 
 
 // Function to push an item to stack
-void push(struct sNode** top_ref, int new_data)
+void pushin(struct sNode** top_ref, int new_data)
 {
 	
 	struct sNode* new_node
@@ -98,7 +88,7 @@ void push(struct sNode** top_ref, int new_data)
 
 
 // Function to pop an item from stack
-int pop(struct sNode** top_ref)
+int popout(struct sNode** top_ref)
 {
 	char res;
 	struct sNode* top;
